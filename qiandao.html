@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <title>签到页</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        div.img {
+            position: relative;
+        }
+        
+        #fx {
+            top: 5px;
+            left: 5px;
+            width: 54px;
+            position: absolute;
+        }
+        
+        #gz {
+            top: 5px;
+            right: 5px;
+            width: 54px;
+            position: absolute;
+        }
+        
+        #tip {
+            color: #E15B4B;
+            font-size: 12px;
+            top: 14px;
+            right: 14px;
+            position: absolute;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+        }
+        
+        div.img>img {
+            width: 100%;
+        }
+        
+        b {
+            font-size: 25px;
+        }
+        
+        div.content {
+            margin: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        div.content>span {
+            font-size: 20px;
+            line-height: 40px;
+            font-weight: 200;
+            color: #ECB54D;
+        }
+        
+        div.content>button {
+            font-size: 16px;
+            color: #905B1F;
+            outline: none;
+            border: none;
+            height: 40px;
+            width: 100px;
+            border-radius: 20px;
+            background-color: #ECB54D;
+        }
+        
+        div.list-imgs {
+            width: calc(100vw - 5px);
+            display: grid;
+            grid-template-columns: repeat(5, 20%);
+            grid-template-rows: repeat(3, 80px);
+        }
+        
+        div.list-imgs>img {
+            box-sizing: border-box;
+            padding: 5px;
+            height: 80px;
+        }
+        
+        div.btns {
+            margin: 30px;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        div.btn {
+            width: 150px;
+            height: 48px;
+            position: relative;
+        }
+        
+        .btn>img {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .btn>span {
+            font-size: 20px;
+            position: absolute;
+            color: white;
+            top: 10px;
+            left: 25px;
+        }
+        /* 签到领奖品模态框 */
+        
+        #qiandaomodal {
+            visibility: hidden;
+            position: fixed;
+            top: 1px;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(0, 0, 0, 0.7);
+        }
+        
+        #qiandaomodal>.content {
+            width: 60%;
+            position: relative;
+            border: 1ps solid blue;
+        }
+        
+        #qiandaomodal>.content>img {
+            width: 60%;
+        }
+        
+        #qiandaomodal>.content>a {
+            width: 100px;
+            height: 35px;
+            color: white;
+            line-height: 35px;
+            text-align: center;
+            border-radius: 20px;
+            border: 1px solid white;
+            position: relative;
+            top: -60px;
+            text-decoration-line: none;
+        }
+        
+        #qiandaomodal>.content>span {
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            font-size: 400%;
+            position: relative;
+            top: -20px;
+        }
+        /* 我的奖品模态框 */
+        
+        #mygiftdiv {
+            position: fixed;
+            top: 1px;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 22%;
+            background-color: rgb(0, 0, 0, 0.7);
+        }
+        
+        #mygiftdiv>img {
+            width: 60%;
+        }
+        
+        #mygiftdiv>span:nth-of-type(1) {
+            position: relative;
+            color: red;
+            top: -245px;
+            font-weight: bolder;
+            font-size: 20px;
+            letter-spacing: 3px;
+        }
+        
+        #mygiftdiv>span:nth-of-type(2) {
+            position: relative;
+            color: red;
+            top: -235px;
+            font-weight: bolder;
+            font-size: 20px;
+        }
+        
+        #mygiftdiv>span:nth-of-type(3) {
+            position: relative;
+            color: yellow;
+            top: -215px;
+            font-weight: bolder;
+            font-size: 20px;
+        }
+        
+        #mygiftdiv>span:nth-of-type(4) {
+            position: relative;
+            color: yellow;
+            top: -210px;
+            font-weight: bolder;
+            font-size: 20px;
+        }
+        
+        #mygiftdiv>span:nth-of-type(5) {
+            position: relative;
+            top: -198px;
+            color: white;
+            /* font-weight: bolder; */
+            font-size: 5px;
+        }
+        
+        #mygiftdiv>a:nth-of-type(1) {
+            width: 80px;
+            height: 35px;
+            color: white;
+            line-height: 35px;
+            text-align: center;
+            border-radius: 20px;
+            border: 1px solid white;
+            position: relative;
+            top: -185px;
+            left: -50px;
+            text-decoration-line: none;
+        }
+        
+        #mygiftdiv>a:nth-of-type(2) {
+            width: 80px;
+            height: 35px;
+            color: white;
+            line-height: 35px;
+            text-align: center;
+            border-radius: 20px;
+            border: 1px solid white;
+            position: relative;
+            top: -220px;
+            left: 50px;
+            text-decoration-line: none;
+        }
+        
+        #mygiftdiv>span:nth-of-type(6) {
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            font-size: 400%;
+            position: relative;
+            top: -180px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="img">
+            <img id="fx" src="assets/fx.png" alt="">
+            <img id="gz" src="./assets/gz-bg.png" alt="">
+            <span id="tip">活动规则</span>
+            <img src="./assets/top.jpg" alt="">
+        </div>
+        <div class="content">
+            <span>总积分：<b>15</b>分</span>
+            <button onclick="mygiftdivShow()">我的奖品</button>
+        </div>
+        <div class="list-imgs">
+            <img src="assets/1.png" alt="">
+            <img src="assets/2.png" alt="">
+            <img src="assets/3.png" alt="">
+            <img src="assets/3.png" alt="">
+            <img src="assets/3.png" alt="">
+            <img src="assets/3.png" alt="">
+            <img src="assets/3.png" alt="">
+            <img src="assets/3.png" alt="">
+            <img src="assets/3.png" alt="">
+            <img src="assets/3.png" alt="">
+            <img src="assets/3.png" alt="">
+            <img src="assets/3.png" alt="">
+            <img src="assets/3.png" alt="">
+            <img src="assets/3.png" alt="">
+            <img src="assets/3.png" alt="">
+        </div>
+        <div class="btns">
+            <div class="btn">
+                <img src="assets/btn.png" alt="">
+                <span onclick="modeldivShow()">签到领积分</span>
+            </div>
+            <div class="btn">
+                <img src="assets/btn.png" alt="">
+                <span>积分兑好礼</span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 签到领奖品模态框 -->
+    <div id="qiandaomodal">
+        <div class="content">
+            <img src="assets/qd.png" alt="">
+            <span>恭喜您</span>
+            <span>每日签到 积分兑好礼</span>
+            <span>今日签到成功</span>
+            <span>+15积分</span>
+            <a href="javascript:void(0);">好礼积分兑</a>
+            <span onclick="modeldivHidden()"><img src="assets/close.png" alt=""></span>
+        </div>
+    </div>
+
+    <!-- 我的奖品模态框 -->
+    <div id="mygiftdiv" style="visibility:hidden;">
+        <img src="assets/mygift.png" alt="">
+        <span>恭喜您</span>
+        <span>每日签到 积分兑好礼</span>
+        <span>成功兑换</span>
+        <span>灌香肠5元代金券</span>
+        <span>奖品领取时间和领取场地详见活动规则</span>
+        <a href="javascript:void(0);">活动规则</a>
+        <a href="javascript:void(0);">我的奖品</a>
+        <span onclick="mygiftdivHidden()"><img src="assets/close.png" alt=""></span>
+    </div>
+
+</body>
+<script>
+    document.querySelector("#tip").addEventListener('click', function() {
+        alert("活动规则")
+    })
+
+    function modeldivShow() {
+        document.getElementById("qiandaomodal").style.visibility = 'visible'
+    }
+
+    function modeldivHidden() {
+        document.getElementById("qiandaomodal").style.visibility = 'hidden'
+    }
+
+    function mygiftdivShow() {
+        document.getElementById("mygiftdiv").style.visibility = 'visible'
+    }
+
+    function mygiftdivHidden() {
+        document.getElementById("mygiftdiv").style.visibility = 'hidden'
+    }
+</script>
+
+</html>
